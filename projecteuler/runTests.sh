@@ -15,9 +15,9 @@ function addResult()
     local exercice_nb=$1
     local expected_output=$2
 
-    local array_key="exercice${exercice_nb}"
+    local array_key="problem${exercice_nb}"
     if [ "${test_results[$array_key]}" != "" ]; then
-        echo "${RED_COLOR}Error${RESET_COLOR}: Exercice number ${exercice_nb} registered twice"
+        echo "${RED_COLOR}Error${RESET_COLOR}: Problem number ${exercice_nb} registered twice"
         exit 1
     fi
 
@@ -45,7 +45,7 @@ failedTests=0
 successTests=0
 for test in $(IFS=" " ls  src/*.cpp); do
     # Extract test name part
-    test=$(echo $test | sed "s#src/\(exercice[0-9]*\)\.cpp#\1#")
+    test=$(echo $test | sed "s#src/\(problem[0-9]*\)\.cpp#\1#")
 
     COMPILE_ONLY=1 make ${test} 2>&1 >/dev/null
 
