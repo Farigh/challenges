@@ -34,6 +34,7 @@ addResult 7  "104743"
 addResult 8  "23514624000"
 addResult 9  "31875000"
 addResult 10 "142913828922"
+addResult 11 "70600674"
 
 ##############################
 ###          MAIN          ###
