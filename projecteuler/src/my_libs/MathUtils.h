@@ -1,6 +1,7 @@
 #ifndef _MATH_UTILS_H_
 # define _MATH_UTILS_H_
 
+# include <cmath>
 # include <list>
 
 namespace my {
@@ -37,17 +38,24 @@ public:
     template <typename InputType>
     static bool isPrime(InputType inputNumber)
     {
-        std::list<InputType> result;
-
-        InputType lowNumber = 1;
-
-        while (lowNumber < (inputNumber - 1))
+        // Handle 2 by hand so we can skip every even numbers
+        if ((inputNumber % 2) == 0)
         {
-            lowNumber++;
+            return false;
+        }
+
+        InputType lowNumber = 3;
+
+        InputType inputSquared = static_cast<InputType>(std::ceil(std::sqrt(inputNumber)));
+
+        // Stop at sqrt since any higher number won't devide it
+        while (lowNumber <= inputSquared)
+        {
             if ((inputNumber % lowNumber) == 0)
             {
                 return false;
             }
+            lowNumber += 2;
         }
 
         return true;
