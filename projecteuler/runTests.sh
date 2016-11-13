@@ -24,15 +24,16 @@ function addResult()
     test_results[$array_key]="${expected_output}"
 }
 
-addResult 1 "sum = 233168"
-addResult 2 "evenSum = 4613732"
-addResult 3 "6857"
-addResult 4 "906609"
-addResult 5 "232792560"
-addResult 6 "25164150"
-addResult 7 "104743"
-addResult 8 "23514624000"
-addResult 9 "31875000"
+addResult 1  "sum = 233168"
+addResult 2  "evenSum = 4613732"
+addResult 3  "6857"
+addResult 4  "906609"
+addResult 5  "232792560"
+addResult 6  "25164150"
+addResult 7  "104743"
+addResult 8  "23514624000"
+addResult 9  "31875000"
+addResult 10 "142913828922"
 
 ##############################
 ###          MAIN          ###
