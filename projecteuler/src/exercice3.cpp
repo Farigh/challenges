@@ -14,36 +14,17 @@
  *
  * What is the largest prime factor of the number 600851475143 ?
  */
+#include <my_libs/MathUtils.h>
+
 #include <iostream>
 #include <list>
 #include <string>
-
-std::list<long int> getDeviders(long int inputNumber)
-{
-    std::list<long int> result;
-
-    long int lowNumber = 1;
-    long int highNumber = inputNumber;
-
-    while (lowNumber < (highNumber - 1))
-    {
-        lowNumber++;
-        if ((inputNumber % lowNumber) == 0)
-        {
-            highNumber = (inputNumber / lowNumber);
-            result.push_back(lowNumber);
-            result.push_back(highNumber);
-        }
-    }
-
-    return result;
-}
 
 int main()
 {
     long int inputNumber = 600851475143;
 
-    std::list<long int> numberDeviders = getDeviders(inputNumber);
+    std::list<long int> numberDeviders = ::my::libs::MathUtils::getDeviders(inputNumber);
 
     numberDeviders.sort();
 
@@ -51,7 +32,7 @@ int main()
     for (std::list<long int>::const_reverse_iterator it = numberDeviders.rbegin(); it != numberDeviders.rend(); ++it)
     {
         // A prime devider is a number with no deviders (besides itself and 1)
-        if (getDeviders(*it).size() == 0)
+        if (::my::libs::MathUtils::getDeviders(*it).size() == 0)
         {
             std::cout << *it << std::endl;
             break;

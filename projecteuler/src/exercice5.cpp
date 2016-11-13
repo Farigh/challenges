@@ -6,36 +6,20 @@
  *
  * What is the smallest positive number that is evenly divisible by all of the numbers from 1 to 20?
  */
+#include <my_libs/MathUtils.h>
+
 #include <cmath>
 #include <iostream>
 #include <list>
 #include <map>
 #include <string>
 
-bool isPrime(int inputNumber)
-{
-    std::list<int> result;
-
-    int lowNumber = 1;
-
-    while (lowNumber < (inputNumber - 1))
-    {
-        lowNumber++;
-        if ((inputNumber % lowNumber) == 0)
-        {
-            return false;
-        }
-    }
-
-    return true;
-}
-
 std::list<int> getPrimes(int max)
 {
     std::list<int> result;
     for (int i = 2; i <= max; ++i)
     {
-        if (isPrime(i))
+        if (::my::libs::MathUtils::isPrime(i))
         {
             result.push_back(i);
         }
