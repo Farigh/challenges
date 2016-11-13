@@ -14,26 +14,12 @@
 #include <map>
 #include <string>
 
-std::list<int> getPrimes(int max)
-{
-    std::list<int> result;
-    for (int i = 2; i <= max; ++i)
-    {
-        if (::my::libs::MathUtils::isPrime(i))
-        {
-            result.push_back(i);
-        }
-    }
-
-    return result;
-}
-
 using FactorWeightMap = std::map<int, int>;
 
 int main()
 {
-    long int highNum = 20;
-    std::list<int> primes = getPrimes(highNum);
+    int highNum = 20;
+    std::list<int> primes = ::my::libs::MathUtils::getPrimes(highNum);
 
     // Key is the prime factor, value is the number of time it appears
     FactorWeightMap factors;

@@ -36,6 +36,28 @@ public:
     }
 
     template <typename InputType>
+    static std::list<InputType> getPrimes(InputType max)
+    {
+        std::list<InputType> result;
+
+        // Handle 2 by hand so we can skip every even numbers
+        if (max >= 2)
+        {
+            result.push_back(2);
+        }
+
+        for (InputType i = 3; i <= max; i += 2)
+        {
+            if (isPrime(i))
+            {
+                result.push_back(i);
+            }
+        }
+
+        return result;
+    }
+
+    template <typename InputType>
     static bool isPrime(InputType inputNumber)
     {
         // Handle 2 by hand so we can skip every even numbers

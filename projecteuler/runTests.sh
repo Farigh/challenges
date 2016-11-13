@@ -28,7 +28,7 @@ addResult 1 "sum = 233168"
 addResult 2 "evenSum = 4613732"
 addResult 3 "6857"
 addResult 4 "906609"
-addResult 5 "14549535"
+addResult 5 "232792560"
 addResult 6 "25164150"
 addResult 7 "104743"
 addResult 8 "23514624000"
@@ -43,7 +43,9 @@ echo "Running test suite ..."
 failedCompile=0
 failedTests=0
 successTests=0
-for test in $(IFS=" " ls  src/*.cpp); do
+
+# Use -1v to sort numerically
+for test in $(IFS=" " ls -1v src/*.cpp); do
     # Extract test name part
     test=$(echo $test | sed "s#src/\(problem[0-9]*\)\.cpp#\1#")
 
