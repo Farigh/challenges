@@ -1,0 +1,4 @@
+*.cpp      eol=lf
+*.mk       eol=lf
+*.sh       eol=lf
+Makefile   eol=lf
