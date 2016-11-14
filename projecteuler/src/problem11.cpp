@@ -60,8 +60,8 @@ int main()
 {
     const std::uint8_t numberToMul = 4;
 
-    const std::uint8_t maxVerticalIndex = inputGrid.size() - numberToMul;
-    const std::uint8_t maxHorizontalIndex = inputGrid[0].size() - numberToMul;
+    const std::uint64_t maxVerticalIndex = inputGrid.size() - numberToMul;
+    const std::uint64_t maxHorizontalIndex = inputGrid[0].size() - numberToMul;
 
     std::uint64_t maxProduct = 0;
     for (std::uint8_t i = 0; i < inputGrid.size(); ++i)
@@ -72,9 +72,9 @@ int main()
             if (i < maxVerticalIndex)
             {
                 std::uint64_t verticalProduct = inputGrid[i][j];
-                for (int k = 1; k < numberToMul; ++k)
+                for (std::uint8_t k = 1; k < numberToMul; ++k)
                 {
-                    verticalProduct *= inputGrid[i + k][j];
+                    verticalProduct *= inputGrid[static_cast<std::uint8_t>(i + k)][j];
                 }
                 if (verticalProduct > maxProduct)
                 {
@@ -86,9 +86,9 @@ int main()
             if (j < maxHorizontalIndex)
             {
                 std::uint64_t horizontalProduct = inputGrid[i][j];
-                for (int k = 1; k < numberToMul; ++k)
+                for (std::uint8_t k = 1; k < numberToMul; ++k)
                 {
-                    horizontalProduct *= inputGrid[i][j + k];
+                    horizontalProduct *= inputGrid[i][static_cast<std::uint8_t>(j + k)];
                 }
                 if (horizontalProduct > maxProduct)
                 {
@@ -100,9 +100,9 @@ int main()
             if ((i < maxVerticalIndex) && (j < maxHorizontalIndex))
             {
                 std::uint64_t leftRightDiagProduct = inputGrid[i][j];
-                for (int k = 1; k < numberToMul; ++k)
+                for (std::uint8_t k = 1; k < numberToMul; ++k)
                 {
-                    leftRightDiagProduct *= inputGrid[i + k][j + k];
+                    leftRightDiagProduct *= inputGrid[static_cast<std::uint8_t>(i + k)][static_cast<std::uint8_t>(j + k)];
                 }
                 if (leftRightDiagProduct > maxProduct)
                 {
@@ -114,9 +114,9 @@ int main()
             if ((i >= numberToMul) && (j < maxHorizontalIndex))
             {
                 std::uint64_t rightLeftDiagProduct = inputGrid[i][j];
-                for (int k = 1; k < numberToMul; ++k)
+                for (std::uint8_t k = 1; k < numberToMul; ++k)
                 {
-                    rightLeftDiagProduct *= inputGrid[i - k][j + k];
+                    rightLeftDiagProduct *= inputGrid[static_cast<std::uint8_t>(i - k)][static_cast<std::uint8_t>(j + k)];
                 }
                 if (rightLeftDiagProduct > maxProduct)
                 {

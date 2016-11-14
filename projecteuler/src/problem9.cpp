@@ -15,16 +15,13 @@
 
 int main()
 {
-    int targetValue = 1000;
+    std::uint32_t targetValue = 1000;
 
-    std::uint16_t a = 1;
-    std::uint16_t b = 2;
-    std::uint16_t c = targetValue - a - b;
-    for (std::uint16_t a = 1; a < (targetValue - 3); ++a)
+    for (std::uint32_t a = 1; a < (targetValue - 3); ++a)
     {
-        for (std::uint16_t b = (a + 1); b < (targetValue - a - 1); ++b)
+        for (std::uint32_t b = (a + 1); b < (targetValue - a - 1); ++b)
         {
-            c = targetValue - a - b;
+            std::uint32_t c = targetValue - a - b;
 
             // Verify a < b < c rule
             if (c <= b)

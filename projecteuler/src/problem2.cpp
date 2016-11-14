@@ -9,22 +9,23 @@
  *
  * By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
  */
+#include <array>
+#include <cstdint>
 #include <iostream>
 #include <string>
-#include <array>
 
 int main()
 {
-    std::array<int,4000> fibs;
-    int maxValue = 4000000;
+    std::array<std::uint32_t,4000> fibs;
+    std::uint32_t maxValue = 4000000;
 
     fibs[0] = 1;
     fibs[1] = 1;
 
-    int currentIndex = 1;
+    std::uint32_t currentIndex = 1;
     while (true)
     {
-        int rez = fibs[currentIndex] + fibs[currentIndex - 1];
+        std::uint32_t rez = fibs[currentIndex] + fibs[currentIndex - 1];
         if (rez >= maxValue)
         {
             break;
@@ -33,10 +34,10 @@ int main()
         fibs[currentIndex] = rez;
     }
 
-    int evenSum = 0;
-    for (int i = 1; i <= currentIndex; ++i)
+    std::uint32_t evenSum = 0;
+    for (std::uint32_t i = 1; i <= currentIndex; ++i)
     {
-        int value = fibs[i];
+        std::uint32_t value = fibs[i];
         if ((value % 2) == 0)
         {
             evenSum += value;

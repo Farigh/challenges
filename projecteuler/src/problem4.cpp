@@ -6,19 +6,20 @@
  *
  * Find the largest palindrome made from the product of two 3-digit numbers.
  */
+#include <cstdint>
 #include <iostream>
 #include <list>
 #include <string>
 
-bool isPalendrome(long int i)
+bool isPalendrome(std::uint64_t input)
 {
     // Easier to check if a string is a palindrome
-    std::string iStr = std::to_string(i);
+    std::string iStr = std::to_string(input);
 
-    int size = iStr.size();
-    int middle = size / 2;
+    std::uint64_t size = iStr.size();
+    std::uint64_t middle = size / 2;
 
-    for (int i = 0; i < middle; i++)
+    for (std::uint32_t i = 0; i < middle; i++)
     {
         if (iStr[i] != iStr[size - i - 1])
         {
@@ -31,14 +32,14 @@ bool isPalendrome(long int i)
 
 int main()
 {
-    long highNum = 999;
-    long lowNum = 100;
+    std::uint64_t highNum = 999;
+    std::uint64_t lowNum = 100;
 
-    std::list<long int> candidates;
-    for (long int i = highNum; i >= lowNum; --i)
+    std::list<std::uint64_t> candidates;
+    for (std::uint64_t i = highNum; i >= lowNum; --i)
     {
         // Assign i instead of highNum to avoid duplicates
-        for (long int j = i; j >= lowNum; --j)
+        for (std::uint64_t j = i; j >= lowNum; --j)
         {
             candidates.push_back(i * j);
         }
@@ -47,7 +48,7 @@ int main()
     candidates.sort();
 
     // As we need to find the largest one, lets reverse iterate
-    for (std::list<long int>::const_reverse_iterator it = candidates.rbegin(); it != candidates.rend(); ++it)
+    for (std::list<std::uint64_t>::const_reverse_iterator it = candidates.rbegin(); it != candidates.rend(); ++it)
     {
         if (isPalendrome(*it))
         {

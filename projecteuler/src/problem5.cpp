@@ -60,7 +60,7 @@ int main()
     // Finally multiply each prime factors powwered by their weight
     for (const FactorWeightMap::value_type& data : factors)
     {
-        result *= std::pow(data.first, data.second);
+        result *= static_cast<int>(std::pow(data.first, data.second));
     }
 
     std::cout << result << std::endl;
