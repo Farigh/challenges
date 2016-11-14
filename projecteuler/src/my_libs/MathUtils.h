@@ -18,17 +18,20 @@ public:
     {
         std::list<InputType> result;
 
-        InputType lowNumber = 1;
-        InputType highNumber = inputNumber;
-
-        while (lowNumber < (highNumber - 1))
+        if (inputNumber > 0)
         {
-            lowNumber++;
-            if ((inputNumber % lowNumber) == 0)
+            InputType lowNumber = 1;
+            InputType highNumber = inputNumber;
+
+            while (lowNumber < (highNumber - 1))
             {
-                highNumber = (inputNumber / lowNumber);
-                result.push_back(lowNumber);
-                result.push_back(highNumber);
+                lowNumber++;
+                if ((inputNumber % lowNumber) == 0)
+                {
+                    highNumber = (inputNumber / lowNumber);
+                    result.push_back(lowNumber);
+                    result.push_back(highNumber);
+                }
             }
         }
 
