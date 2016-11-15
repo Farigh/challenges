@@ -4,11 +4,13 @@
 # include <algorithm>
 # include <cmath>
 # include <cstdint>
+# include <iomanip>
+# include <sstream>
 
 namespace my {
 namespace libs {
 
-template<typename InnerType, int MaxSubDigits = 10, int MaxInnerListSize = 5>
+template<typename InnerType, std::uint32_t MaxInnerListSize = 5, std::uint32_t MaxSubDigits = 10>
 class BigInt
 {
 public:
@@ -19,7 +21,9 @@ public:
 
     BigInt(InnerType n)
     {
-        add(n);
+        InnerDataType toAdd = { 0 };
+        toAdd[MaxInnerListSize - 1] = n;
+        add(toAdd);
     }
 
     BigInt(const InnerDataType& array)
@@ -28,7 +32,7 @@ public:
     }
 
     // Don't support different BigInt types right now
-    void add(const BigInt<InnerType, MaxSubDigits, MaxInnerListSize>& number)
+    void add(const BigInt<InnerType, MaxInnerListSize, MaxSubDigits>& number)
     {
         for (std::uint8_t i = (MaxInnerListSize - 1); ; --i)
         {
@@ -75,11 +79,45 @@ public:
         return result;
     }
 
+    std::string toString() const
+    {
+        std::ostringstream formater;
+
+        bool isFirst = true;
+        for (std::uint8_t i = 0; i < MaxInnerListSize; ++i)
+        {
+            // Avoid leading 0s
+            if (isFirst && (Data[i] == 0))
+            {
+                continue;
+            }
+
+            if (isFirst)
+            {
+                isFirst = false;
+            }
+            else
+            {
+                // Add padding
+                formater << std::setfill('0') << std::setw(MaxSubDigits);
+            }
+
+            formater << Data[i];
+        }
+
+        return formater.str();
+    }
+
+    std::uint32_t getMaxInnerListSize()
+    {
+        return MaxInnerListSize;
+    }
+
     InnerDataType Data = { 0 };
 
 private:
     // Mask to add 1 to the upper array
-    static constexpr std::uint64_t _nextArrayMask = static_cast<std::uint64_t>(std::pow(MaxSubDigits, MaxSubDigits));
+    static constexpr std::uint64_t _nextArrayMask = static_cast<std::uint64_t>(std::pow(10, MaxSubDigits));
 };
 
 } // namespace libs
