@@ -103,10 +103,10 @@
  * 20849603980134001723930671666823555245252804609722
  * 53503534226472524250874054075591789781264330331690
  */
-#include <cmath>
+#include <my_libs/BigInt.h>
+
 #include <cstdint>
 #include <iostream>
-#include <limits>
 
 // Cute numbers in arrays of 5 10-digit numbers
 static const std::uint64_t input[100][5] =
@@ -215,56 +215,15 @@ static const std::uint64_t input[100][5] =
 
 int main()
 {
-    const std::uint8_t arrayLength = 5;
     const std::uint8_t expectedDigit = 10;
-    const std::uint64_t expectedDigitMask = static_cast<std::uint64_t>(std::pow(expectedDigit, 10));
-
-    // Mask to add 1 to the upper array
-    std::uint64_t nextArrayMask = static_cast<std::uint64_t>(std::pow(10, 10));
 
     // Initialize
-    std::uint64_t resultArray[arrayLength] = { 0, 0, 0, 0, 0 };
+    ::my::libs::BigInt<std::uint64_t> resultArray;
 
     for (const auto& numberArray : input)
     {
-        for (std::uint8_t i = (arrayLength - 1); ; --i)
-        {
-            resultArray[i] += numberArray[i];
-
-            if (i == 0)
-            {
-                break;
-            }
-            else
-            {
-                const std::uint64_t overflow = (resultArray[i] / nextArrayMask);
-                // Transfer the overflow to higher index
-                if (overflow > 0)
-                {
-                    resultArray[i - 1] += overflow;
-                    resultArray[i] %= nextArrayMask;
-                }
-            }
-        }
+        resultArray.add(::my::libs::BigInt<std::uint64_t>(numberArray));
     }
 
-    std::uint64_t result = resultArray[0];
-
-    // Handle resultDigit > expectedDigit
-    while (result >= expectedDigitMask)
-    {
-        result /= 10;
-    }
-
-    // Handle resultDigit < expectedDigit
-    std::uint64_t restMask = (nextArrayMask / 10);
-    while (result < (expectedDigitMask / 10))
-    {
-        result *= 10;
-        result += resultArray[1] / restMask;
-        resultArray[1] %= restMask;
-        restMask /= 10;
-    }
-
-    std::cout << result << std::endl;
+    std::cout << resultArray.getFirstDigits(expectedDigit) << std::endl;
 }
