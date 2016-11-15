@@ -56,21 +56,23 @@ for test in $(IFS=" " ls -1v src/*.cpp); do
 
     COMPILE_ONLY=1 make ${test} 2>&1 >/dev/null
 
+    printf "   %-12s => " "$test"
+
     if [ $? -ne 0 ]; then
         ((failedCompile++))
-        printf "   %-12s => [${RED_COLOR}FAIL COMPILE${RESET_COLOR}]\n" "$test"
+        echo "[${RED_COLOR}FAIL COMPILE${RESET_COLOR}]"
         continue
     fi
 
     result=$(out/${test})
 
     if [ "${result}" != "${test_results[$test]}" ]; then
-        printf "   %-12s => [${RED_COLOR}FAILED${RESET_COLOR}]\n" "$test"
-        echo   "        expected : ${test_results[$test]}"
-        echo   "           found : ${result}"
+        echo "[${RED_COLOR}FAILED${RESET_COLOR}]"
+        echo "        expected : ${test_results[$test]}"
+        echo "           found : ${result}"
         ((failedTests++))
     else
-        printf "   %-12s => [${GREEN_COLOR}SUCCESS${RESET_COLOR}]\n" "$test"
+        echo "[${GREEN_COLOR}SUCCESS${RESET_COLOR}]"
         ((successTests++))
     fi
 done
