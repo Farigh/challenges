@@ -218,7 +218,6 @@ CXXFLAGS += -Werror=int-to-pointer-cast
 CXXFLAGS += -Werror=invalid-memory-model
 CXXFLAGS += -Werror=invalid-offsetof
 CXXFLAGS += -Werror=main
-CXXFLAGS += -Werror=mudflap
 CXXFLAGS += -Werror=narrowing
 CXXFLAGS += -Werror=non-template-friend
 #CXXFLAGS += -Werror=normalized  # Not available with GCC 4.8.4
