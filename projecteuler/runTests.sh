@@ -1,8 +1,12 @@
 #! /bin/bash
 
-RESET_COLOR=`echo -e "\e[00m"`
-RED_COLOR=`echo -e "\e[1;31m"`
-GREEN_COLOR=`echo -e "\e[1;32m"`
+resolved_script_path=`readlink -f $0`
+current_script_dir=`dirname ${resolved_script_path}`
+current_full_path=`readlink -e ${current_script_dir}`
+
+RESET_COLOR=`echo -e "\e[0m"`
+RED_COLOR=`echo -e "\e[31m"`
+GREEN_COLOR=`echo -e "\e[32m"`
 
 ##############################
 ###    EXPECTED RESULTS    ###
@@ -52,19 +56,19 @@ failedTests=0
 successTests=0
 
 # Use -1v to sort numerically
-for test in $(IFS=" " ls -1v src/*.cpp); do
+for test in $(IFS=" " ls -1v ${current_full_path}/src/*.cpp); do
     # Extract test name part
-    test=$(echo $test | sed "s#src/\(problem[0-9]*\)\.cpp#\1#")
+    test=$(echo $(basename $test) | sed "s#\(problem[0-9]*\)\.cpp#\1#")
 
     printf "   %-12s => " "$test"
 
-    if [ ! -f "out/${test}" ]; then
+    if [ ! -f "${current_full_path}/out/${test}" ]; then
         ((failedCompile++))
         echo "[${RED_COLOR}FAIL COMPILE${RESET_COLOR}]"
         continue
     fi
 
-    result=$(out/${test})
+    result=$(${current_full_path}/out/${test})
 
     if [ "${result}" != "${test_results[$test]}" ]; then
         echo "[${RED_COLOR}FAILED${RESET_COLOR}]"
@@ -102,4 +106,4 @@ echo "         Success : ${success_color}${successTests}${RESET_COLOR}"
 echo "          Failed : ${failed_color}${failedTests}${RESET_COLOR}"
 echo "   Compile error : ${failed_compile_color}${failedCompile}${RESET_COLOR}"
 
-exit $failedTests
+exit $(($failedTests + $failedCompile))
