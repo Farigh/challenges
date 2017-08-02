@@ -56,11 +56,9 @@ for test in $(IFS=" " ls -1v src/*.cpp); do
     # Extract test name part
     test=$(echo $test | sed "s#src/\(problem[0-9]*\)\.cpp#\1#")
 
-    COMPILE_ONLY=1 make ${test} 2>&1 >/dev/null
-
     printf "   %-12s => " "$test"
 
-    if [ $? -ne 0 ]; then
+    if [ ! -f "out/${test}" ]; then
         ((failedCompile++))
         echo "[${RED_COLOR}FAIL COMPILE${RESET_COLOR}]"
         continue
@@ -103,3 +101,5 @@ echo "Summary :"
 echo "         Success : ${success_color}${successTests}${RESET_COLOR}"
 echo "          Failed : ${failed_color}${failedTests}${RESET_COLOR}"
 echo "   Compile error : ${failed_compile_color}${failedCompile}${RESET_COLOR}"
+
+exit $failedTests
