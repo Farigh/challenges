@@ -1,0 +1,24 @@
+stages:
+  - build
+  - test
+
+build_job:
+  stage: build
+  tags:
+    - cpp-build
+    - make-build
+  script:
+    - make -C projecteuler/
+  artifacts:
+    paths:
+      - projecteuler/out/
+
+test_job:
+  stage: test
+  dependencies:
+    - build_job
+  tags:
+    - cpp-build
+    - make-build
+  script:
+    - projecteuler/runTests.sh
